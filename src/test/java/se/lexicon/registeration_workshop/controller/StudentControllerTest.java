@@ -86,10 +86,11 @@ public class StudentControllerTest {
         Assertions.assertEquals(200, status);
 
     }
+
     @Test
     @DisplayName("Test3")
     public void test3_getAll_student() throws Exception {
-        String jsonMassage=" {\n" +
+        String jsonMassage = " {\n" +
                 "        \"id\": \"1\",\n" +
                 "        \"firstName\": \"Aman\",\n" +
                 "        \"lastName\": \"A\",\n" +
@@ -197,5 +198,26 @@ public class StudentControllerTest {
         Assertions.assertEquals(200, status);
     }
 
+    @Test
+    @DisplayName("Test4")
+    public void test4_deleteById_student() throws Exception {
+        String jsonMassage = " {\n" +
+                "        \"id\": \"1\",\n" +
+                "        \"firstName\": \"Aman\",\n" +
+                "        \"lastName\": \"A\",\n" +
+                "        \"age\": 25,\n" +
+                "        \"gender\": \"Female\",\n" +
+                "        \"email\": \"95pinkpanda@gmail.com\",\n" +
+                "        \"phoneNumber\": \"0730922681\",\n" +
+                "        \"regDate\": \"2001-01-01T00:00:00\",\n" +
+                "        \"status\": true\n" +
+                "    }";
+        MvcResult mvcResult = mockMvc.perform(delete("/api/student/")
+                .content(jsonMassage)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
+        ).andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        Assertions.assertEquals(405, status);
+    }
 }
 
