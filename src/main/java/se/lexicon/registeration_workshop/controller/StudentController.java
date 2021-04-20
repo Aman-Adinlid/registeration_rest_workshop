@@ -2,7 +2,9 @@ package se.lexicon.registeration_workshop.controller;
 
 import com.sun.xml.bind.v2.model.core.ID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,5 +43,17 @@ public class StudentController {
             return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("/api/student/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable("id") String id) {
+        System.out.println("id = " + id);
+        Optional<Student> optionalStudent = studentRepository.findById(id);
+        if (optionalStudent.isPresent()) {
+            studentRepository.deleteById(id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).build();
+
+        }
+    }
 
 }
