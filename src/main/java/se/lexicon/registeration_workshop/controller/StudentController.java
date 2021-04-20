@@ -54,13 +54,17 @@ public class StudentController {
         }
     }
 
-    @PostMapping ("/")
+    @PostMapping("/")
     public ResponseEntity<Student> save(@RequestBody Student student) {
         System.out.println("student = " + student);
         Student res = studentRepository.save(student);
         return ResponseEntity.status(HttpStatus.CREATED).body(res);
+    }
 
-
+    @PutMapping("/")
+    public ResponseEntity<Student> update(@RequestBody Student student) {
+        Student res = studentRepository.save(student);
+        return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 }
 
