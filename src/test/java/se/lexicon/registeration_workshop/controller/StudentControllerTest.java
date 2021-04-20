@@ -45,14 +45,14 @@ public class StudentControllerTest {
     @DisplayName("Test1")
     public void test1_save_student_CREATED() throws Exception {
         String jsonMassage = "{\n" +
-                "     \"firstName\": \"Sara12\",\n" +
-                "        \"lastName\": \"Lars\",\n" +
-                "        \"age\": 28,\n" +
+                "\"firstName\": \"Sara\",\n" +
+                "        \"lastName\": \"Adam\",\n" +
+                "        \"age\": 26,\n" +
                 "        \"gender\": \"Female\",\n" +
-                "        \"email\": \"12pinkpanda@gmail.com\",\n" +
-                "        \"phoneNumber\": \"0730922623\",\n" +
-                "        \"regDate\": \"2012-03-01T00:00:00\",\n" +
-                "        \"status\": false\n" +
+                "        \"email\": \"95pinkpanda@gmail.com\",\n" +
+                "        \"phoneNumber\": \"0730922633\",\n" +
+                "        \"regDate\": \"2003-03-02T00:00:00\",\n" +
+                "        \"status\": true\n" +
                 "    }";
 
 
@@ -65,6 +65,27 @@ public class StudentControllerTest {
         Assertions.assertEquals(201, status);
     }
 
+    @Test
+    @DisplayName("Test2")
+    public void test2_update_student() throws Exception {
+        String jsonMassage = " {\n" +
+                "\"firstName\": \"Aman\",\n" +
+                "        \"lastName\": \"Adam\",\n" +
+                "        \"age\": 25,\n" +
+                "        \"gender\": \"Female\",\n" +
+                "        \"email\": \"22pinkpanda@gmail.com\",\n" +
+                "        \"phoneNumber\": \"07309222633\",\n" +
+                "        \"regDate\": \"2003-03-02T00:00:00\",\n" +
+                "        \"status\": true\n" +
+                "    }";
+        MvcResult mvcResult = mockMvc.perform(put("/api/student/")
+                .content(jsonMassage)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
+        ).andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        Assertions.assertEquals(200, status);
+
+    }
 
 }
 
