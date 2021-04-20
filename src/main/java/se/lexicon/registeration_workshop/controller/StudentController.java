@@ -4,10 +4,7 @@ import com.sun.xml.bind.v2.model.core.ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import se.lexicon.registeration_workshop.entity.Student;
 import se.lexicon.registeration_workshop.repository.StudentRepository;
 
@@ -16,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api/student/")
 public class StudentController {
 
     StudentRepository studentRepository;
@@ -25,7 +23,7 @@ public class StudentController {
         this.studentRepository = studentRepository;
     }
 
-    @GetMapping("/api/student/")
+    @GetMapping("/")
     public ResponseEntity<List<Student>> getAll() {
         List<Student> studentList = new ArrayList<>();
         studentRepository.findAll().iterator().forEachRemaining(studentList::add);
@@ -33,7 +31,7 @@ public class StudentController {
 
     }
 
-    @GetMapping("/api/student/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Student> getById(@PathVariable("id") String id) {
         System.out.println("ID: " + id);
         Optional<Student> optionalStudent = studentRepository.findById(id);
@@ -43,7 +41,7 @@ public class StudentController {
             return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/api/student/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable("id") String id) {
         System.out.println("id = " + id);
         Optional<Student> optionalStudent = studentRepository.findById(id);
@@ -56,4 +54,14 @@ public class StudentController {
         }
     }
 
+    @PostMapping ("/")
+    public ResponseEntity<Student> save(@RequestBody Student student) {
+        System.out.println("student = " + student);
+        Student res = studentRepository.save(student);
+        return ResponseEntity.status(HttpStatus.CREATED).body(res);
+
+
+    }
 }
+
+
