@@ -55,7 +55,6 @@ public class StudentControllerTest {
                 "        \"status\": true\n" +
                 "    }";
 
-
         // String studentJsonMessage= objectMapper.writeValueAsString(student);
         MvcResult mvcResult = mockMvc.perform(post("/api/student/")
                 .content(jsonMassage)
